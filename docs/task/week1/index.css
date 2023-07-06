@@ -14,8 +14,8 @@ body {
 }
 
 .menu {
-    flex: none;
-    width: 80%;
+    flex: auto;
+    width: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
