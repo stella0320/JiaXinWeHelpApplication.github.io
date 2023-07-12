@@ -63,6 +63,7 @@ let calculateSumOfBonus = function(data){
 }
 
 console.log("---task2------");
+console.log("---每個人的bonus在bouns欄位------");
 calculateSumOfBonus({
     "employees":[
                     {
