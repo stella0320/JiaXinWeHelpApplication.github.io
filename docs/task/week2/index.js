@@ -1,5 +1,5 @@
 
-var find_and_print = function(messages) {
+let find_and_print = function(messages) {
     let result = []; // 如果符合18歲年齡將名單放進這個array
     let eightean_age_list = ['18 years old', 'legal age in Taiwan'] //定義18歲年齡
 
@@ -87,7 +87,7 @@ calculateSumOfBonus({
 });
 
 
-var func = function(/**/) { 
+let func = function(/**/) { 
 
     let raw_data = Array.prototype.slice.call(arguments);
     let duplicate_date = [];
