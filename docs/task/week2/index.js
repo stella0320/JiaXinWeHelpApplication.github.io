@@ -1,5 +1,5 @@
 
-var find_and_print = function(messages) {
+let find_and_print = function(messages) {
     let result = []; // 如果符合18歲年齡將名單放進這個array
     let eightean_age_list = ['18 years old', 'legal age in Taiwan'] //定義18歲年齡
 
@@ -23,7 +23,72 @@ find_and_print({
 });
 
 
-var func = function(/**/) { 
+let calculateSumOfBonus = function(data){
+    let employeeInfo = data["employees"];
+    let usd_rate = 30; // 定義匯率
+    let standard_performance_rate ={"above_average": 5,"average": 3, "below_average": 2 }; // 定義各表現程度的加權比例
+    let standard_role_rate = {"Engineer": 3,"CEO": 5, "Sales": 2}; // 定義各角色的加權比例
+    let total_salary = 0;
+    
+    let bonus_rate = [];
+    for (let i=0;i< employeeInfo.length;i++) {
+        let salary = employeeInfo[i]['salary'].toString().replace(/,/g, ""); // 將逗號拿掉
+        if (salary.indexOf('USD') > -1) {   // 如果是USD，先乘匯率
+            salary = salary.replace('USD', '');
+            salary = salary * usd_rate;
+        }
+        employeeInfo[i]['salary'] = parseInt(salary);
+    }
+
+    // 計算表現和角色的加權比例成薪水，組成加權薪水
+    let total_new_salary = 0;
+    for (let i=0;i < employeeInfo.length;i++) {
+        let salary = employeeInfo[i]['salary'];
+        let bonus_rate = salary/total_salary;
+        let performance = employeeInfo[i]['performance'].toString().replace(/ /g, "_");
+        let performance_rate = standard_performance_rate[performance];
+        let role_rate = standard_role_rate[employeeInfo[i]['role']];
+        let new_salary = salary * (performance_rate + role_rate); // 新的加權薪水，利用原薪水 * (表現加權 + 角色加權)
+        employeeInfo[i]['new_salary'] = new_salary;
+        total_new_salary += new_salary;
+    }
+
+    // 按照每個人的加權薪水比例去分配bonus 10000原
+    for (let i=0;i < employeeInfo.length;i++) {
+        let new_salary = employeeInfo[i]['new_salary'];
+        employeeInfo[i]['bonus']  = Math.round(new_salary/total_new_salary*10000);
+    }
+    console.log(employeeInfo);
+
+}
+
+console.log("---task2------");
+console.log("---每個人的bonus在bouns欄位------");
+calculateSumOfBonus({
+    "employees":[
+                    {
+                        "name":"John",
+                        "salary":"1000USD",
+                        "performance":"above average",
+                        "role":"Engineer"
+                    },
+                    {
+                        "name":"Bob",
+                        "salary":60000,
+                        "performance":"average",
+                        "role":"CEO"
+                    },
+                    {
+                        "name":"Jenny",
+                        "salary":"50,000",
+                        "performance":"below average",
+                        "role":"Sales"
+                    }
+                ]
+});
+
+
+let func = function(/**/) { 
 
     let raw_data = Array.prototype.slice.call(arguments);
     let duplicate_date = [];
