@@ -10,7 +10,7 @@ location_info = data['result']['results'];
 
 distict_zone_list = ['中正區', '萬華區', '中⼭區', '⼤同區', '⼤安區', '松⼭區', '信義區', '⼠林區', '文⼭區', '北投區', '內湖區', '南港區'];
 print(len(location_info));
-with open('/week3/attraction.csv', mode='w', encoding='utf-8') as file:
+with open('attraction.csv', mode='w', encoding='utf-8') as file:
     for location in location_info:
         file.write(location['stitle']);
         file.write(',');
@@ -18,12 +18,17 @@ with open('/week3/attraction.csv', mode='w', encoding='utf-8') as file:
         file.write(location['address'][5:8]);
         location['distict'] = distict;
         all_file = location['file'];
-        pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$";
-        all_file_list = re.findall(pattern, all_file, re.IGNORECASE);
-        if len(all_file_list) > 0:
-            file.write(',');
-            file.write(all_file_list[0]);
-            location['main_website'] = all_file_list[0];
+        position = all_file.index("https://www.travel.taipei/", 5);
+        main_website = all_file[:position];
+        location['main_website'] = main_website;
+        file.write(',');
+        file.write(main_website);
+        # pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$";
+        # all_file_list = re.findall(pattern, all_file, re.IGNORECASE);
+        # if len(all_file_list) > 0:
+        #     file.write(',');
+        #     file.write(all_file_list[0]);
+        #     location['main_website'] = all_file_list[0];
         file.write('\n');
 
 location_by_distict = {}
@@ -37,7 +42,7 @@ for location in location_info:
 
 print(location_by_distict);
 
-with open('/week3/mrt.csv', mode='w', encoding='utf-8') as file:
+with open('mrt.csv', mode='w', encoding='utf-8') as file:
     for key, values in location_by_distict.items():
         file.write(key);
         file.write(',');
