@@ -47,6 +47,7 @@ let createMainItem2 = function(picUrl, tableText) {
     itemText.classList.add('item-2-text');
     const itemTextTxt = document.createElement('div');
     itemTextTxt.classList.add('table-text');
+    
     // 塞標題文字
     let txt = document.createTextNode(tableText);
     itemTextTxt.appendChild(txt);
