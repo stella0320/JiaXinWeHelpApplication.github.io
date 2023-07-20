@@ -7,13 +7,7 @@ import json
 url = 'https://www.ptt.cc/bbs/movie/index.html';
 headers = {'User-Agent': 'Mozilla/5.0'} # 信任網站參數
 
-# url = 'https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json';
-# with request.urlopen('https://www.ptt.cc/bbs/movie/M.1689770726.A.E4F.html') as response:
-    # 需要注意編碼
-    # print(response.status)
-    # page_data = response.read().decode("utf-8");     
-# print(page_data)
-
+# 計算推文數
 def countGoodOpinion(data, content):
     count = 0
     for item in content:
@@ -25,7 +19,7 @@ def countGoodOpinion(data, content):
     
     return data
 
-    data['goodOpinion'] = count
+# 處理每一則貼文的標題與時間'
 def handleMainInfo(data, header):
     for item in header:
         topic = item.find('span', class_="article-meta-tag")
@@ -40,7 +34,7 @@ def handleMainInfo(data, header):
                 data['time']  = time_text.getText();
     return data
 
-
+# 處理每一則貼文，打開url，並找到標題&時間，並計算推文數
 def handleEveryPost(url):
     page_request = request.Request('https://www.ptt.cc/' + url, headers=headers);
     response = request.urlopen(page_request)
@@ -55,6 +49,7 @@ def handleEveryPost(url):
 
 result = []
 
+# 處理每一頁，解析出每一條post的url，再個別打開解析頁面資訊
 def handleEveryPage(pageUrl):
     main_request = request.Request(pageUrl, headers=headers);
     response_list = request.urlopen(main_request)
@@ -70,6 +65,7 @@ def handleEveryPage(pageUrl):
         post_result = handleEveryPost(post_url)
         result.append(post_result)
 
+# 在貼文清單頁面中，找到前一頁的url
 def getPreviousPageUrl(PageUrl):
     previous_page_request = request.Request(PageUrl, headers=headers);
     index = request.urlopen(previous_page_request)
@@ -82,6 +78,7 @@ def getPreviousPageUrl(PageUrl):
 
     return 'https://www.ptt.cc/' + previous_page_url;
 
+# 將組好的資料，寫成txt檔
 def generateCsv(data):
     with open('movie.txt', mode='w', encoding='utf-8') as file:
         for item in data:
@@ -93,12 +90,15 @@ def generateCsv(data):
             file.write('\n');
 
 
-count = 3;
+count = 3; # 總共解析三頁
 
 while(count > 0):
+    # 解析每一頁
     handleEveryPage(url);
+    # 解析每一頁完找出前一頁的url
     url = getPreviousPageUrl(url);
     count -= 1;
+
 print(result);
 
 generateCsv(result);
