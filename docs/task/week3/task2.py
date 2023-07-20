@@ -1,10 +1,11 @@
-# import urllib.request as request
-import requests
+import urllib.request as request
+# import requests
 from bs4 import BeautifulSoup
 import json
 
 
 url = 'https://www.ptt.cc/bbs/movie/index.html';
+headers = {'User-Agent': 'Mozilla/5.0'} # 信任網站參數
 
 # url = 'https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json';
 # with request.urlopen('https://www.ptt.cc/bbs/movie/M.1689770726.A.E4F.html') as response:
@@ -41,10 +42,11 @@ def handleMainInfo(data, header):
 
 
 def handleEveryPost(url):
-    response = requests.get('https://www.ptt.cc/' + url)
+    page_request = request.Request('https://www.ptt.cc/' + url, headers=headers);
+    response = request.urlopen(page_request)
     data = {}
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, "html.parser")
+    if response.status == 200:
+        soup = BeautifulSoup(response.read().decode('UTF-8'), "html.parser")
         header = soup.select(".article-metaline")
         content = soup.select(".push-tag")
         data = handleMainInfo(data, header)
@@ -54,9 +56,11 @@ def handleEveryPost(url):
 result = []
 
 def handleEveryPage(pageUrl):
-    response_list = requests.get(pageUrl)
-    soup_list = BeautifulSoup(response_list.text, "html.parser")
-    if response_list.status_code == 200:
+    main_request = request.Request(pageUrl, headers=headers);
+    response_list = request.urlopen(main_request)
+    
+    soup_list = BeautifulSoup(response_list.read().decode('UTF-8'), "html.parser")
+    if response_list.status == 200:
         post_list = soup_list.select('.title')
 
     for item in post_list:
@@ -67,8 +71,9 @@ def handleEveryPage(pageUrl):
         result.append(post_result)
 
 def getPreviousPageUrl(PageUrl):
-    index = requests.get(PageUrl)
-    soup_index = BeautifulSoup(index.text, "html.parser")
+    previous_page_request = request.Request(PageUrl, headers=headers);
+    index = request.urlopen(previous_page_request)
+    soup_index = BeautifulSoup(index.read().decode('utf-8'), "html.parser")
     paging_list = soup_index.select('.btn.wide')
     previous_page_url = "";
     for paging in paging_list:

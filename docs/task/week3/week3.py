@@ -28,12 +28,14 @@ with open('attraction.csv', mode='w', encoding='utf-8') as file:
 location_by_distict = {}
 # by 區域group 各景點: {區域: '', 景點:[]}
 for location in location_info:
-    distict = location['distict'];
+    station = location['MRT'];
     view_point = location['stitle'];
-    if distict in location_by_distict.keys():
-        location_by_distict[distict] += [view_point];
+    if not station:
+        continue;
+    if station in location_by_distict.keys():
+        location_by_distict[station] += [view_point];
     else:
-        location_by_distict[distict] = [view_point];
+        location_by_distict[station] = [view_point];
 
 with open('mrt.csv', mode='w', encoding='utf-8') as file:
     for key, values in location_by_distict.items():
