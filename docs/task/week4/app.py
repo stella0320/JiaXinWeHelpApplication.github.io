@@ -53,7 +53,6 @@ def signin():
 
 @app.route('/square/<number>', methods = ['GET'])
 def square(number):
-    # return redirect(url_for('squareResult', result = str(int(number) ** 2)))
     return render_template('/caculateResult.html', result = str(int(number) ** 2), time=str(time.time()))
 
 
