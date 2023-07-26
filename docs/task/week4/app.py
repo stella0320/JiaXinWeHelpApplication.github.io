@@ -35,7 +35,7 @@ def signout():
         session['signed_in'] = False
     return redirect('/')
 
-@app.route('/signin', methods=['POST'])
+@app.route('/signin', methods = ['POST'])
 def signin():
     username = request.form.get('username', '')
     password = request.form.get('password', '')
@@ -50,6 +50,12 @@ def signin():
         # 新增session
         session['signed_in'] = True
     return redirect('/member')
+
+@app.route('/square/<number>', methods = ['GET'])
+def square(number):
+    # return redirect(url_for('squareResult', result = str(int(number) ** 2)))
+    return render_template('/caculateResult.html', result = str(int(number) ** 2), time=str(time.time()))
+
 
 app.run(port=3000)
 
