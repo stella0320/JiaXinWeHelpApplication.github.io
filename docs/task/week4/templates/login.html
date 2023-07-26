@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/style.css?cache={{time}}"/>
         
 </head>
 <body>
-    <div class="welcome"><div>歡迎光臨，請輸入帳號密碼</div></div>
-    <div class="content-container">
-        <div class="content">
-            <div class="login-main"><div>登入系統</div></div>
-            <div class="account-main">
-                <div>帳號</div>
-                <div><input type="text"/> </div>
-            </div>
-            <div class="password-main">
-                <div>密碼</div>
-                <div><input type="password"/>  </div>
-            </div>
-            <div class="agree-main">
-                <div>同意條款</div>
-                <div><input type="checkbox"/>  </div>
-            </div>
-            <div class="btn-main">
-                <div><button>登入</button></div>
+    <form method="post" action="/signin">
+        <div class="welcome"><div>歡迎光臨，請輸入帳號密碼</div></div>
+        <div class="content-container">
+            <div class="content">
+                <div class="login-main"><div>登入系統</div></div>
+                <div class="username-main">
+                    <div>帳號</div>
+                    <div><input type="text" name="username" /> </div>
+                </div>
+                <div class="password-main">
+                    <div>密碼</div>
+                    <div><input type="password" name="password"/>  </div>
+                </div>
+                <div class="agree-main">
+                    <div>同意條款</div>
+                    <div><input type="checkbox" name="aggreement"/>  </div>
+                </div>
+                <div class="btn-main">
+                    <div><input type="submit" id="loginBtn" value="登入" /></div>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
-
+<script src="/static/login.js?cache={{time}}"></script>
 </html>

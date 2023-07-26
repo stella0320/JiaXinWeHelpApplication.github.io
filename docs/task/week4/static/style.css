@@ -42,14 +42,14 @@ body {
     font-weight: bold;
 }
 
-.account-main {
+.username-main {
     width: 100%;
     display: flex;
     margin: 10px;
     /* flex: none; */
 }
 
-.account-main > div {
+.username-main > div {
     flex: none;
     margin: 2px;
 }
