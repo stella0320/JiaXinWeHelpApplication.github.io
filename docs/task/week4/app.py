@@ -19,8 +19,8 @@ def login():
 
 @app.route('/error')
 def error():
-    msg = request.args.get("msg", "")
-    return render_template('/errorPage.html', error=msg, time=str(time.time()))
+    message = request.args.get("message", "")
+    return render_template('/errorPage.html', error=message, time=str(time.time()))
 
 @app.route('/member')
 def member():
@@ -41,10 +41,10 @@ def signin():
     password = request.form.get('password', '')
     if not username or not password:
         # 帳號或密碼為空
-        return redirect(url_for('error', msg = "Please enter username and password"))
+        return redirect(url_for('error', message = "Please enter username and password"))
     elif username != 'test' or password != 'test':
         # 帳號或密碼錯誤
-        return redirect(url_for('error', msg = "Username or password is not correct"))
+        return redirect(url_for('error', message = "Username or password is not correct"))
     
     if username:
         # 新增session
