@@ -7,11 +7,6 @@ INSERT INTO website.member (name, username, password)
 VALUES ('test', 'test', 'test');
 ```
 ![](https://hackmd.io/_uploads/ByVQkLLj3.png)
-image/image2.jpg
-
-
-
-![](https://github.com/stella0320/JiaXinWeHelpApplication.github.io/blob/main/image/image2.jpg)
 
 ```mysql=
 INSERT INTO website.member (name, username, password, follower_count)
