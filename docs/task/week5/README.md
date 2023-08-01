@@ -8,8 +8,7 @@ VALUES ('test', 'test', 'test');
 ```
 ![](https://hackmd.io/_uploads/ByVQkLLj3.png)
 
-<img src="https://hackmd.io/_uploads/ByVQkLLj3.png" >
-
+![](./image/image2.jpg)
 
 ```mysql=
 INSERT INTO website.member (name, username, password, follower_count)
