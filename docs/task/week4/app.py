@@ -6,6 +6,7 @@ from flask import request
 from flask import redirect
 from flask import session
 import time
+import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -13,6 +14,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 
 @app.route('/')
 def login():
+    print('login:'+ request.cookies.get(app.config['SESSION_COOKIE_NAME']))
     if session.get('signed_in'):
         return redirect('/member')
     return render_template('/login.html', time=str(time.time()))
@@ -24,6 +26,8 @@ def error():
 
 @app.route('/member')
 def member():
+    # 紀錄session
+    print('member:'+request.cookies.get(app.config['SESSION_COOKIE_NAME']))
     if not session.get('signed_in'):
         return redirect('/')
     return render_template('/member.html', time=str(time.time()))
@@ -45,6 +49,7 @@ def signin():
     elif username != 'test' or password != 'test':
         # 帳號或密碼錯誤
         return redirect(url_for('error', message = "Username or password is not correct"))
+    
     
     if username:
         # 新增session
