@@ -138,6 +138,12 @@ body {
     justify-content: center;
 }
 
+.btnZone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width:1920px) {
     .main-contain-2 {
         flex-wrap: wrap;

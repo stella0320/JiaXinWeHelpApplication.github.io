@@ -81,25 +81,46 @@ let appendMainTable2 = function(initIndex, data) {
     }
 }
 
+;
 let handleUrlResponse = async function (response) {
     let data = await response.json();
     if(response.status === 200){
         let results = data['result']['results'];
+        
         // 前三張處理
         appendMainTable1(results);
 
         let initIndex = 3;
-        // 後面處理
-        appendMainTable2(initIndex, results);
+
+        document.getElementById("moreBtn").addEventListener("click", function() {
+            // 後面處理
+            if (initIndex + 12 < results.length) {
+                appendMainTable2(initIndex, results);
+                console.log('init index:' + initIndex);
+                initIndex += 12;
+            }
+        });
+
+        document.getElementById("moreBtn").click();
     }else{
      // Rest of status codes (400,500,303), can be handled here appropriately
     }
 
 }
 
+
+let initMoreBtn = function(results) {
+
+    // appendMainTable2(initIndex, results);
+    // moreBtn
+}
+
+
+
 fetch(url)
       .then(handleUrlResponse)
       .catch((err) => {
           console.log(err);
-      })
+      });
+
 
