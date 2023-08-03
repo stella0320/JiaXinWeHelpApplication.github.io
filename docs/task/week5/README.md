@@ -47,11 +47,10 @@ select * from website.member order by time desc;
 * 使⽤ SELECT 指令取得 member 資料表中第 2 到第 4 筆共三筆資料，並按照 time 欄位，由近到遠排序。( 並非編號 2、3、4 的資料，⽽是排序後的第 2 ~ 4 筆資料 )
 
 ```mysql=
-select a.* from 
-(select ROW_NUMBER () over (order by time desc) num, member.* from website.member member) a
-where a.num between 2 and 4;
+select a.* from website.member a order by time desc
+limit 2, 3;
 ```
-![](https://github.com/stella0320/JiaXinWeHelpApplication.github.io/blob/main/docs/task/week5/image/image3-4.png)
+![](https://github.com/stella0320/JiaXinWeHelpApplication.github.io/blob/main/docs/task/week5/image/image3-4.jpg)
 
 
 * 使⽤ SELECT 指令取得欄位 username 是 test 的會員資料。
