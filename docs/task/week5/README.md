@@ -48,7 +48,7 @@ select * from website.member order by time desc;
 
 ```mysql=
 select a.* from website.member a order by time desc
-limit 2, 3;
+limit 1, 3;
 ```
 ![](https://github.com/stella0320/JiaXinWeHelpApplication.github.io/blob/main/docs/task/week5/image/image3-4.jpg)
 
