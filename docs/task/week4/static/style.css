@@ -1,0 +1,91 @@
+body {
+    margin: 0px;
+    font-size: 20px;
+}
+
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(5, 48, 88);
+    height: 150px;
+}
+
+.welcome > div {
+    color: white;
+    font-size: 40px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.content {
+    /* display: flex; */
+    flex: none;
+}
+
+.login-main {
+    display: flex;
+    width: 100%;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.login-main > div {
+    flex: none;
+    font-weight: bold;
+}
+
+.username-main {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+    /* flex: none; */
+}
+
+.username-main > div {
+    flex: none;
+    margin: 2px;
+}
+
+.password-main {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+}
+
+.password-main  > div {
+    flex: none;
+    margin: 2px;
+}
+
+.agree-main {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.agree-main  > div {
+    flex: none;
+    font-size: 12px;
+}
+
+.btn-main {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-main  > div {
+    flex: none;
+}
