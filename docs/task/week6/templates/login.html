@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css?cache={{time}}"/>
+        
+</head>
+<body>
+    <div class="welcome"><div>歡迎光臨，請註冊登入系統</div></div>
+    <form method="post" id="registrationForm" action="/registration">
+        <div class="content-container">
+            <div class="content">
+                <div class="title-main"><div>註冊帳號</div></div>
+                <div class="title-main">
+                    <div>姓名</div>
+                    <div><input type="text" name="name" /> </div>
+                </div>
+                <div class="title-main">
+                    <div>帳號</div>
+                    <div><input type="text" name="username" /> </div>
+                </div>
+                <div class="title-main">
+                    <div>密碼</div>
+                    <div><input type="password" name="password"/>  </div>
+                </div>
+                <div class="title-main">
+                    <div><input type="submit" id="registrationBtn" value="註冊" /></div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <form method="post" action="/signin">
+        <div class="content-container">
+            <div class="content">
+                <div class="title-main"><div>登入系統</div></div>
+                <div class="title-main">
+                    <div>帳號</div>
+                    <div><input type="text" name="username" /> </div>
+                </div>
+                <div class="title-main">
+                    <div>密碼</div>
+                    <div><input type="password" name="password"/></div>
+                </div>
+                <div class="title-main">
+                    <div><input type="submit" id="loginBtn" value="登入" /></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<script src="/static/login.js?cache={{time}}"></script>
+</html>

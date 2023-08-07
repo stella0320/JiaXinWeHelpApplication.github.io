@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css?cache={{time}}"/>
+        
+</head>
+<body>
+    <div class="welcome"><div>歡迎光臨，這是會員頁</div></div>
+    <div class="content-container">
+        <div class="content">
+            <div class="title-main">
+                <div>{{ name }}，成功登入系統</div>
+            </div>
+            <div class="title-main">
+                <div><a href="/signout">登出系統</a></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="content-container">
+        <div class="content">
+            <div class="title-main">
+                <div style="font-weight: bolder">快來留言吧</div>
+            </div>
+            <div class="title-main">
+                <div>內容</div>
+                <div><input type="text" name="message"/>  </div>
+            </div>
+            <div class="title-main">
+                <div><input type="submit" id="submitMessageBtn" value="送出" /></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="content-container">
+        
+    </div>
+</body>
+</html>
