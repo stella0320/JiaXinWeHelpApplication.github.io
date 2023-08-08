@@ -20,27 +20,6 @@ def login():
         return redirect('/member')
     return render_template('/login.html', time=str(time.time()))
 
-@app.route('/error')
-def error():
-    message = request.args.get("message", "")
-    return render_template('/errorPage.html', error=message, time=str(time.time()))
-
-@app.route('/member')
-def member():
-    # 紀錄session
-    print('member:'+request.cookies.get(app.config['SESSION_COOKIE_NAME']))
-    member = session.get('signed_in')
-    if not member:
-        return redirect('/')
-    return render_template('/member.html', time=str(time.time()), name = member['name'])
-
-@app.route('/signout')
-def signout():
-    # 登出後，將session移除
-    if session.get('signed_in'):
-        session['signed_in'] = False
-    return redirect('/')
-
 @app.route('/registration', methods = ['POST'])
 def registration():
     if session.get('signed_in'):
@@ -54,11 +33,16 @@ def registration():
         return redirect(url_for('error', message = "帳號已經被註冊"))
     
     password = request.form.get('password', '')
-    name = request.form.get('username', '')
+    name = request.form.get('name', '')
+
+    if not username or not name or not password:
+        return redirect('/')
+
     db_connect.insertNewMember(name, username, password)
     member = db_connect.queryMemberByUserName(username)
+    # 新增session
     session['signed_in'] = member
-    return redirect('/member')
+    return redirect('/')
 
 
 @app.route('/signin', methods = ['POST'])
@@ -72,8 +56,8 @@ def signin():
     
     db_connect = Website('localhost', 'root', 'root')
     member = db_connect.queryMemberByUserName(username)
+    # 帳號或密碼錯誤
     if not member or member['password'] != password:
-        # 帳號或密碼錯誤
         return redirect(url_for('error', message = "Username or password is not correct"))
     
     if username:
@@ -81,6 +65,51 @@ def signin():
         session['signed_in'] = member
     return redirect('/member')
 
+@app.route('/error')
+def error():
+    message = request.args.get("message", "")
+    return render_template('/errorPage.html', error=message, time=str(time.time()))
+
+@app.route('/member')
+def member():
+    # 紀錄session
+    # print('member:'+request.cookies.get(app.config['SESSION_COOKIE_NAME']))
+    member = session.get('signed_in')
+    if not member:
+        return redirect('/')
+    
+    db_connect = Website('localhost', 'root', 'root')
+    allMessage = db_connect.queryAllMessage()
+    return render_template('/member.html', time=str(time.time()), name = member['name'], allMessage = allMessage)
+
+@app.route('/signout')
+def signout():
+    # 登出後，將session移除
+    if session.get('signed_in'):
+        session['signed_in'] = False
+    return redirect('/')
+
+@app.route('/deleteMessage', methods = ['POST'])
+def deleteMessage():
+    
+    member = session.get('signed_in')
+    message_Id = request.form.get('messageId', '')
+    if not member or not message_Id:
+        return redirect('/member')
+    db_connect = Website('localhost', 'root', 'root')
+    db_connect.deleteMsesageById(message_Id)
+    return redirect('/member')
+
+@app.route('/createMessage', methods = ['POST'])
+def createMessage():
+    member = session.get('signed_in')
+    message = request.form.get('message', '')
+    if not member:
+        return redirect('/')
+
+    db_connect = Website('localhost', 'root', 'root')
+    db_connect.insertNewMessage(member['id'], message)
+    return redirect('/member')
 
 app.run(port=3000)
 

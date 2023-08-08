@@ -44,3 +44,38 @@ class Website(object):
         self.__connect.commit()
         self.__close__()
         
+    def queryAllMessage(self):
+        sql = 'select b.name, b.username , a.* from website.message a'
+        sql += ' left join website.member b'
+        sql += ' on a.member_id = b.id'
+        sql += ' order by time'
+
+        self.__open__()
+        self.__cursor.execute(sql)
+        result = self.__cursor.fetchall()
+        self.__close__()
+        if result and len(result) > 0:
+            return [dict(zip(self.__cursor.column_names, row)) for row in result]
+        
+        return None
+    
+    def insertNewMessage(self, member_id, message):
+        
+        if not member_id or not message:
+            return None
+
+        sql = "INSERT INTO WEBSITE.MESSAGE (MEMBER_ID, CONTENT)"
+        sql += " values (%s, %s)"
+
+        self.__open__()
+        self.__cursor.execute(sql, (member_id, message))
+        self.__connect.commit()
+        self.__close__()
+
+    def deleteMsesageById(self, message_id):
+        sql = "DELETE FROM WEBSITE.MESSAGE"
+        sql += " WHERE ID = %s"
+        self.__open__()
+        self.__cursor.execute(sql, (message_id, ))
+        self.__connect.commit()
+        self.__close__()
