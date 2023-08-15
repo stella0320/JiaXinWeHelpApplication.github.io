@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css?cache={{time}}"/>
+        
+</head>
+<body>
+    <div class="welcome"><div>歡迎光臨，這是會員頁</div></div>
+    <div class="content-container">
+        <div class="content">
+            <div class="title-main">
+                <div>{{ name }}，成功登入系統</div>
+            </div>
+            <div class="title-main">
+                <div><a href="/signout">登出系統</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="content">
+            <div class="title-main">
+                <div>查詢會員姓名</div>
+            </div>
+            <div class="title-main">
+                <div><input type="text" id="queryUsername" name="username"/></div>
+                <div><button id="queryUsernameBtn">查詢</button></div>
+            </div>
+            <div class="title-main">
+                <div id="queryUsernameResult"></div>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="content">
+            <div class="title-main">
+                <div>更新我的姓名</div>
+            </div>
+            <div class="title-main">
+                <div><input type="text" id="newName" name="newName"/></div>
+                <div><button id="updateNameBtn">更新</button></div>
+            </div>
+            <div class="title-main">
+                <div id="updateNameResult"></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="content-container">
+        <div class="content">
+            <form method="post" action="/createMessage">
+                <div class="title-main">
+                    <div style="font-weight: bolder">快來留言吧</div>
+                </div>
+                <div class="title-main">
+                    <div>內容</div>
+                    <div><input type="text" name="message"/>  </div>
+                </div>
+                <div class="title-main">
+                    <div><input type="submit" id="submitMessageBtn" value="送出" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="content-container">
+        <div class="content">
+            {% for message in allMessage%}
+            <div class="title-main">
+                <div>{{message.name}} : {{message.content}}</div>
+                {% if message.name == name %}
+                    <div><button name="deleteMessageBtn" data-id={{message.id}} onclick="clickDeleteMessage(this)">X</button></div>
+                    <!-- <div><input type="submit" name="deleteMessageBtn" value="X" data-id= {{message.id}} /></div> -->
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+<script src="/static/member.js?cache={{time}}"></script>
+</html>
