@@ -131,7 +131,7 @@ def memberApi():
         
     return jsonify({'data': None})
 
-@app.route('/api/updateMember', methods = ['PATCH'])
+@app.route('/api/member', methods = ['PATCH'])
 def updateMember():
    
     member = session.get('signed_in')

@@ -39,7 +39,7 @@ document.getElementById("queryUsernameBtn").addEventListener("click", clickQuery
 
 function clickUpdateUserBtn() {
     let newName = document.getElementById("newName").value;
-    fetch('http://127.0.0.1:3000/api/updateMember', {
+    fetch('http://127.0.0.1:3000/api/member', {
         method:'PATCH',
         body: JSON.stringify({
             name : newName
